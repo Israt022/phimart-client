@@ -59,6 +59,7 @@ const Register = () => {
             </div>
           )}
 
+          {/* Resend Activation Email  */}
           {registerEmail && successMsg && (
             <div 
               className="mt-4 text-center"
