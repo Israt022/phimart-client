@@ -5,8 +5,13 @@ import ErroAlert from "../components/ErrorAlert";
 import { useState } from "react";
 
 const Register = () => {
-  const { registerUser, errorMsg } = useAuthContext();
+  const { registerUser,resendActivationEmail, errorMsg } = useAuthContext();
   const [successMsg, setSuccessMsg] = useState("");
+  
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [resendSuccess, setResendSuccess] = useState("");
+  const [resendError, setResendError] = useState("");
+
 
   const {
     register,
@@ -21,6 +26,7 @@ const Register = () => {
       const response = await registerUser(data);
       console.log(response);
       if (response.success) {
+        setRegisterEmail(data.email)
         setSuccessMsg(response.message);
         // setTimeout(() => navigate("/login"), 3000);
       }
@@ -50,6 +56,37 @@ const Register = () => {
                 />
               </svg>
               <span>{successMsg}</span>
+            </div>
+          )}
+
+          {registerEmail && successMsg && (
+            <div 
+              className="mt-4 text-center"
+            >
+              <p
+                className="text-sm"
+              >
+                Didn't receive the activation email?
+                <button
+                  type="button"
+                  className="link link-primary"
+                  onClick={
+                    async() => {
+                      const res = await resendActivationEmail(registerEmail);
+                      if (res.success) {
+                        setResendSuccess(res.success);
+                        setResendError("");
+                      }
+                      else {
+                        setResendError(res.message);
+                        setResendSuccess("");
+                      }
+                    }
+                  }
+                >
+                  Resend Activation Email
+                </button>
+              </p>
             </div>
           )}
 
@@ -192,7 +229,7 @@ const Register = () => {
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary w-full"></button>
+            <button type="submit" className="btn btn-primary w-full">Register</button>
           </form>
 
           <div className="text-center mt-4">
