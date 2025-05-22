@@ -128,6 +128,42 @@ const useAuth = () => {
             );
         };  
     };
+    // Forgot Password (send email)
+    const sendPasswordResetEmail   = async (email) => {
+        setErrorMsg("");
+        try{
+            await apiClient.post("/auth/users/reset_password/",{email});
+            return {
+                success : true,
+                message : "Password reset email sent."
+            }
+        } catch (error) {
+            return handleAPIError(
+                error,
+                "Failed to send reset email."
+            );
+        };  
+    };
+    // Confirm Password Reset (with token & uid)
+    const confirmPasswordReset   = async ({uid, token, new_password}) => {
+        setErrorMsg("");
+        try{
+            await apiClient.post("/auth/users/reset_password_confirm/",{
+                uid, 
+                token, 
+                new_password
+            });
+            return {
+                success : true,
+                message : "Password reset successful."
+            }
+        } catch (error) {
+            return handleAPIError(
+                error,
+                "Reset failed. Try again."
+            );
+        };  
+    };
 
     // Logout User 
     const logoutUser = () => {
@@ -145,6 +181,8 @@ const useAuth = () => {
         updateUserProfile,
         changePassword,
         resendActivationEmail,
+        sendPasswordResetEmail,
+        confirmPasswordReset
     };
 };
 
