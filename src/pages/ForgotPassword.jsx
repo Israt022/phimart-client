@@ -23,6 +23,7 @@ const ForgotPassword = () => {
             {errorMsg && <ErrorAlert error={errorMsg} />}
             {successMsg && <p className="text-success">{successMsg}</p>}
             <form onSubmit={handleSubmit(onSubmit)}>
+                <label className="label">Email :</label>
                 <input
                     {...register("email", { required: "Email is required" })}
                     placeholder="Enter your email"
