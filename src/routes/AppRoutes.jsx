@@ -12,6 +12,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Profile from "../pages/Profile";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
+import ProductDetail from "../pages/ProductDetail";
+import Cart from "../pages/Cart";
 
 const AppRoutes = () => {
     return (
@@ -27,6 +29,7 @@ const AppRoutes = () => {
                 <Route path="activate/:uid/:token" element={<ActivateAccount />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+                <Route path="shop/:productId" element={<ProductDetail />} />
                
             </Route>
 
@@ -46,6 +49,10 @@ const AppRoutes = () => {
                 <Route 
                     path="profile"
                     element = {<Profile/>}
+                />
+                <Route 
+                    path="cart"
+                    element = {<Cart/>}
                 />
             </Route>
             
