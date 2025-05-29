@@ -14,6 +14,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ProductDetail from "../pages/ProductDetail";
 import Cart from "../pages/Cart";
+import Orders from "../pages/Orders";
 
 const AppRoutes = () => {
     return (
@@ -53,6 +54,10 @@ const AppRoutes = () => {
                 <Route 
                     path="cart"
                     element = {<Cart/>}
+                />
+                <Route 
+                    path="orders"
+                    element = {<Orders/>}
                 />
             </Route>
             

@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import authApiClient from "../services/auth-api-client";
 
 const useCart = () => {
-  // const [authToken] = useState(
-  //   () => JSON.parse(localStorage.getItem("authTokens")).access
-  // );
-  const [authToken] = useState(() => {
-  const tokens = localStorage.getItem("authTokens");
-  return tokens ? JSON.parse(tokens).access : null;
-});
+  const [authToken] = useState(
+    () => JSON.parse(localStorage.getItem("authTokens"))?.access
+  );
+//   const [authToken] = useState(() => {
+//   const tokens = localStorage.getItem("authTokens");
+//   return tokens ? JSON.parse(tokens).access : null;
+// });
   const [cart, setCart] = useState(null);
   const [cartId, setCartId] = useState(() => localStorage.getItem("cartId"));
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,6 @@ const useCart = () => {
   const createOrGetCart = useCallback(async () => {
     setLoading(true);
     try {
-      console.log(authToken);
       const response = await authApiClient.post("/carts/");
       if (!cartId) {
         localStorage.setItem("cartId", response.data.id);
@@ -29,7 +28,7 @@ const useCart = () => {
     } finally {
       setLoading(false);
     }
-  }, [authToken, cartId]);
+  }, [cartId]);
 
   // Add items to the cart
   const AddCartItems = useCallback(
@@ -41,10 +40,10 @@ const useCart = () => {
       if (!cartId) await createOrGetCart();
       try {
         const response = await authApiClient.post(`/carts/${cartId}/items/`, {
-          // product_id,
-          // quantity,
-          product: product_id,  // ✅ Correct key
+          product_id,
           quantity,
+          // product: product_id,  // ✅ Correct key
+          // quantity,
         });
         return response.data;
       } catch (error) {
@@ -92,6 +91,7 @@ const useCart = () => {
   return {
     cart,
     loading,
+    cartId,
     createOrGetCart,
     AddCartItems,
     updateCartItemQuantity,

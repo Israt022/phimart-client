@@ -89,8 +89,14 @@ const useAuth = () => {
             
             // After Login set User
             await fetchUserProfile();
+            return{
+                success : true, 
+            };
         } catch(error){
             setErrorMsg(error.response.data?.detail);
+            return{
+                success : false, 
+            };
         };
 
     };
@@ -170,6 +176,7 @@ const useAuth = () => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem('authTokens');
+        localStorage.removeItem('cartId');
     };
 
     return {
