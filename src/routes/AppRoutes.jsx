@@ -15,6 +15,7 @@ import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ProductDetail from "../pages/ProductDetail";
 import Cart from "../pages/Cart";
 import Orders from "../pages/Orders";
+import PaymentSuccess from "../pages/PaymentSuccess";
 
 const AppRoutes = () => {
     return (
@@ -58,6 +59,10 @@ const AppRoutes = () => {
                 <Route 
                     path="orders"
                     element = {<Orders/>}
+                />
+                <Route 
+                    path="payment/success/"
+                    element = {<PaymentSuccess/>}
                 />
             </Route>
             
